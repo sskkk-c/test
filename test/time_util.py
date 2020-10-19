@@ -36,8 +36,8 @@ class TimeUtil():
         try:
             dt = datetime.fromtimestamp(t)
             return dt.strftime("%Y年%m月%d日 %H时%M分%S秒")
-        except OSError:
-            pass
+        except (ValueError, OSError):
+            return None
 
     @staticmethod
     def string_to_timestamp(time_string, format=default_format):
