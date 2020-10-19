@@ -36,8 +36,10 @@ class TimeUtil():
         try:
             dt = datetime.fromtimestamp(t)
             return dt.strftime("%Y年%m月%d日 %H时%M分%S秒")
-        except (ValueError, OSError):
-            return None
+        except ValueError:
+            pass
+        except OSError:
+            pass
 
     @staticmethod
     def string_to_timestamp(time_string, format=default_format):
@@ -47,7 +49,7 @@ class TimeUtil():
             timestamp = datetime.timestamp(dt)
 
             return int(timestamp)
-        except (ValueError, TypeError):
+        except ValueError:
             pass
 
     @staticmethod
@@ -55,21 +57,17 @@ class TimeUtil():
         """将给定日期时间字符串解析成一个月以前的日期时间字符串"""
 
         dt = datetime.strptime(time_string, TimeUtil.default_format)
-        try:
-            new_dt = dt + relativedelta(months=months)
+        new_dt = dt + relativedelta(months=months)
 
-            return new_dt
-        except (ValueError, TypeError):
-            pass
+        return new_dt.strftime(TimeUtil.default_format)
+
 
     @staticmethod
     def time_add_day(time_string, days):
         """将日期加减，返回格式化后的日期"""
 
-        try:
-            dt = datetime.strptime(time_string, TimeUtil.default_format)
-            new_dt = dt + relativedelta(days=days)
+        dt = datetime.strptime(time_string, TimeUtil.default_format)
+        new_dt = dt + relativedelta(days=days)
 
-            return new_dt.strftime("%Y-%m-%d")
-        except (ValueError, TypeError):
-            pass
+        return new_dt.strftime("%Y-%m-%d")
+
