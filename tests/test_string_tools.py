@@ -4,7 +4,7 @@ from test.string_tools import StringTools
 
 class TestStringTools(unittest.TestCase):
     def test_str2int(self):
-        print(StringTools.int2str(0.000000000001))
+        print(StringTools.str2int(False))
 
     def test_length(self):
         print(StringTools.length(1))
